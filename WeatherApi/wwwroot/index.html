@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gero WeatherSys</title>
+  <meta name="description"
+    content="Real-time weather dashboard — search any city instantly for current conditions, humidity, wind speed, and 5-day forecast." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Animated nature-gradient background -->
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-blob b1"></div>
+    <div class="bg-blob b2"></div>
+    <div class="bg-blob b3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">
+      <span class="brand-icon"><img src="/weather.png" alt="Gero Project" width="30" height="30" /></span>
+      <span class="brand-name">Gero WeatherSys</span>
+    </div>
+    <div class="nav-controls">
+      <button id="unitToggle" class="pill-btn" title="Switch temperature unit" aria-label="Toggle temperature unit">°C /
+        °F</button>
+      <button id="themeToggle" class="icon-btn" title="Toggle dark/light mode" aria-label="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container" role="main">
+
+    <!-- Search section -->
+    <section class="search-section" aria-label="City search">
+      <h1 class="headline">Find the perfect <span class="highlight">forecast</span><br />for your city</h1>
+      <p class="sub">Enter any city name below to get live weather instantly.</p>
+      <div class="search-bar" role="search">
+        <input id="cityInput" type="text" class="search-input" placeholder="Search city… e.g. Manila, Tokyo, London"
+          aria-label="City name" autocomplete="off" />
+        <button id="searchBtn" class="search-btn" aria-label="Search weather">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Search
+        </button>
+        <button id="geoBtn" class="geo-btn" title="Use my location" aria-label="Use my location">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+            <circle cx="12" cy="12" r="9" stroke-dasharray="4 2" />
+          </svg>
+        </button>
+      </div>
+      <!-- Recent cities -->
+      <div id="recentCities" class="recent-cities" aria-label="Recent searches"></div>
+    </section>
+
+    <!-- Loading spinner -->
+    <div id="loader" class="loader hidden" aria-live="polite" aria-label="Loading weather data">
+      <div class="spinner"></div>
+      <p>Fetching weather…</p>
+    </div>
+
+    <!-- Error toast -->
+    <div id="errorToast" class="error-toast hidden" role="alert" aria-live="assertive">
+      <span id="errorIcon">⚠️</span>
+      <span id="errorMsg">City not found. Please try again.</span>
+      <button id="closeError" aria-label="Dismiss error">✕</button>
+    </div>
+
+    <!-- Weather dashboard (hidden until data loads) -->
+    <div id="weatherDash" class="weather-dash hidden">
+
+      <!-- Hero card -->
+      <div class="glass-card hero-card">
+        <div class="hero-left">
+          <div class="city-header">
+            <h2 id="cityName" class="city-name">—</h2>
+            <span id="countryBadge" class="country-badge"></span>
+          </div>
+          <div id="dateTime" class="date-time"></div>
+          <div class="main-temp-row">
+            <div id="weatherIcon" class="weather-icon-wrap"></div>
+            <div>
+              <div id="mainTemp" class="main-temp">—</div>
+              <div id="weatherCondition" class="weather-condition">—</div>
+              <div id="weatherDesc" class="weather-desc">—</div>
+            </div>
+          </div>
+          <div class="feels-like-row">
+            <span>Feels like <strong id="feelsLike">—</strong></span>
+            <span class="sep">|</span>
+            <span>High <strong id="tempMax">—</strong></span>
+            <span class="sep">|</span>
+            <span>Low <strong id="tempMin">—</strong></span>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-icon">💧</div>
+              <div class="stat-value" id="humidity">—</div>
+              <div class="stat-label">Humidity</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">💨</div>
+              <div class="stat-value" id="windSpeed">—</div>
+              <div class="stat-label">Wind Speed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">👁️</div>
+              <div class="stat-value" id="visibility">—</div>
+              <div class="stat-label">Visibility</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🔵</div>
+              <div class="stat-value" id="pressure">—</div>
+              <div class="stat-label">Pressure</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🌅</div>
+              <div class="stat-value" id="sunrise">—</div>
+              <div class="stat-label">Sunrise</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🌇</div>
+              <div class="stat-value" id="sunset">—</div>
+              <div class="stat-label">Sunset</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-day forecast -->
+      <section class="forecast-section" aria-label="5-day forecast">
+        <h3 class="section-title">📅 5-Day Forecast</h3>
+        <div id="forecastStrip" class="forecast-strip"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>Powered by <a href="https://openweathermap.org/" target="_blank" rel="noopener">OpenWeatherMap</a></span>
+    <span>Made with Gero WeatherSys</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

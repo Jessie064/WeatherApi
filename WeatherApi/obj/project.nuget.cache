@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "dgSpecHash": "+t/GW4uK0t4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Jessie\\OneDrive\\Desktop\\weather\\WeatherApi\\WeatherApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jessie\\.nuget\\packages\\microsoft.extensions.http\\10.0.3\\microsoft.extensions.http.10.0.3.nupkg.sha512",
+    "C:\\Users\\Jessie\\.nuget\\packages\\system.text.json\\10.0.3\\system.text.json.10.0.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference Microsoft.Extensions.Http will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "projectPath": "C:\\Users\\Jessie\\OneDrive\\Desktop\\weather\\WeatherApi\\WeatherApi.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Jessie\\OneDrive\\Desktop\\weather\\WeatherApi\\WeatherApi.csproj",
+      "libraryId": "Microsoft.Extensions.Http",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference System.Text.Json will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "projectPath": "C:\\Users\\Jessie\\OneDrive\\Desktop\\weather\\WeatherApi\\WeatherApi.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Jessie\\OneDrive\\Desktop\\weather\\WeatherApi\\WeatherApi.csproj",
+      "libraryId": "System.Text.Json",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
